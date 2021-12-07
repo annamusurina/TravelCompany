@@ -1,0 +1,606 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Travel_company1Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Additional_feature">
+          <Key>
+            <PropertyRef Name="Code_feature" />
+          </Key>
+          <Property Name="Code_feature" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_service" Type="int" Nullable="false" />
+          <Property Name="Code_hotel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Code_city" />
+          </Key>
+          <Property Name="Code_city" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title_city" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Code_client" />
+          </Key>
+          <Property Name="Code_client" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familia_client" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Name_client" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Patronymic_client" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Passport" Type="int" Nullable="false" />
+          <Property Name="Adress" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Telephone" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="Code_hotel" />
+          </Key>
+          <Property Name="Code_hotel" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_city" Type="int" Nullable="false" />
+          <Property Name="Title_hotel" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Rating" Type="real" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Code_order" />
+          </Key>
+          <Property Name="Code_order" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_worker" Type="int" Nullable="false" />
+          <Property Name="Code_client" Type="int" Nullable="false" />
+          <Property Name="Code_tour" Type="int" Nullable="false" />
+          <Property Name="Registration_date" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servic">
+          <Key>
+            <PropertyRef Name="Code_service" />
+          </Key>
+          <Property Name="Code_service" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title_service" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="Code_tour" />
+          </Key>
+          <Property Name="Code_tour" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code_hotel" Type="int" Nullable="false" />
+          <Property Name="Code_transport" Type="int" Nullable="false" />
+          <Property Name="From_Where" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="To_Where" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Number_of_people" Type="int" Nullable="false" />
+          <Property Name="Departure_date" Type="date" Nullable="false" />
+          <Property Name="Arrival_date" Type="date" Nullable="false" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar" MaxLength="1000" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="Code_transport" />
+          </Key>
+          <Property Name="Code_transport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title_transport" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Code_worker" />
+          </Key>
+          <Property Name="Code_worker" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Familia_worker" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Name_worker" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Patronymic_worker" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="Passport" Type="int" Nullable="false" />
+          <Property Name="Telephone" Type="varchar" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Additiona__Code___398D8EEE">
+          <End Role="Servic" Type="Self.Servic" Multiplicity="1" />
+          <End Role="Additional_feature" Type="Self.Additional_feature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servic">
+              <PropertyRef Name="Code_service" />
+            </Principal>
+            <Dependent Role="Additional_feature">
+              <PropertyRef Name="Code_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Additiona__Code___3A81B327">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Additional_feature" Type="Self.Additional_feature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Code_hotel" />
+            </Principal>
+            <Dependent Role="Additional_feature">
+              <PropertyRef Name="Code_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hotel__Code_city__2E1BDC42">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Code_city" />
+            </Principal>
+            <Dependent Role="Hotel">
+              <PropertyRef Name="Code_city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_cli__35BCFE0A">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Code_client" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_tou__36B12243">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="Code_tour" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_tour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_wor__34C8D9D1">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Code_worker" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tour__Code_hotel__30F848ED">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Code_hotel" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="Code_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tour__Code_trans__31EC6D26">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="Code_transport" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="Code_transport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Travel_company1ModelContainer">
+          <EntitySet Name="Additional_feature" EntityType="Self.Additional_feature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servic" EntityType="Self.Servic" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transport" EntityType="Self.Transport" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Additiona__Code___398D8EEE" Association="Self.FK__Additiona__Code___398D8EEE">
+            <End Role="Servic" EntitySet="Servic" />
+            <End Role="Additional_feature" EntitySet="Additional_feature" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Additiona__Code___3A81B327" Association="Self.FK__Additiona__Code___3A81B327">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Additional_feature" EntitySet="Additional_feature" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hotel__Code_city__2E1BDC42" Association="Self.FK__Hotel__Code_city__2E1BDC42">
+            <End Role="City" EntitySet="City" />
+            <End Role="Hotel" EntitySet="Hotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_cli__35BCFE0A" Association="Self.FK__Orders__Code_cli__35BCFE0A">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_tou__36B12243" Association="Self.FK__Orders__Code_tou__36B12243">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_wor__34C8D9D1" Association="Self.FK__Orders__Code_wor__34C8D9D1">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tour__Code_hotel__30F848ED" Association="Self.FK__Tour__Code_hotel__30F848ED">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tour__Code_trans__31EC6D26" Association="Self.FK__Tour__Code_trans__31EC6D26">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Travel_company1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Additional_feature">
+          <Key>
+            <PropertyRef Name="Code_feature" />
+          </Key>
+          <Property Name="Code_feature" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_service" Type="Int32" Nullable="false" />
+          <Property Name="Code_hotel" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Servic" Relationship="Self.FK__Additiona__Code___398D8EEE" FromRole="Additional_feature" ToRole="Servic" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Additiona__Code___3A81B327" FromRole="Additional_feature" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="Code_city" />
+          </Key>
+          <Property Name="Code_city" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title_city" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Hotel__Code_city__2E1BDC42" FromRole="City" ToRole="Hotel" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="Code_client" />
+          </Key>
+          <Property Name="Code_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familia_client" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name_client" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Patronymic_client" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Passport" Type="Int32" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Code_cli__35BCFE0A" FromRole="Client" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Hotel">
+          <Key>
+            <PropertyRef Name="Code_hotel" />
+          </Key>
+          <Property Name="Code_hotel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_city" Type="Int32" Nullable="false" />
+          <Property Name="Title_hotel" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Rating" Type="Single" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Additional_feature" Relationship="Self.FK__Additiona__Code___3A81B327" FromRole="Hotel" ToRole="Additional_feature" />
+          <NavigationProperty Name="City" Relationship="Self.FK__Hotel__Code_city__2E1BDC42" FromRole="Hotel" ToRole="City" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK__Tour__Code_hotel__30F848ED" FromRole="Hotel" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="Code_order" />
+          </Key>
+          <Property Name="Code_order" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_worker" Type="Int32" Nullable="false" />
+          <Property Name="Code_client" Type="Int32" Nullable="false" />
+          <Property Name="Code_tour" Type="Int32" Nullable="false" />
+          <Property Name="Registration_date" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Client" Relationship="Self.FK__Orders__Code_cli__35BCFE0A" FromRole="Orders" ToRole="Client" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK__Orders__Code_tou__36B12243" FromRole="Orders" ToRole="Tour" />
+          <NavigationProperty Name="Worker" Relationship="Self.FK__Orders__Code_wor__34C8D9D1" FromRole="Orders" ToRole="Worker" />
+        </EntityType>
+        <EntityType Name="Servic">
+          <Key>
+            <PropertyRef Name="Code_service" />
+          </Key>
+          <Property Name="Code_service" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title_service" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Additional_feature" Relationship="Self.FK__Additiona__Code___398D8EEE" FromRole="Servic" ToRole="Additional_feature" />
+        </EntityType>
+        <EntityType Name="Tour">
+          <Key>
+            <PropertyRef Name="Code_tour" />
+          </Key>
+          <Property Name="Code_tour" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code_hotel" Type="Int32" Nullable="false" />
+          <Property Name="Code_transport" Type="Int32" Nullable="false" />
+          <Property Name="From_Where" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="To_Where" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Number_of_people" Type="Int32" Nullable="false" />
+          <Property Name="Departure_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Arrival_date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Hotel" Relationship="Self.FK__Tour__Code_hotel__30F848ED" FromRole="Tour" ToRole="Hotel" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Code_tou__36B12243" FromRole="Tour" ToRole="Orders" />
+          <NavigationProperty Name="Transport" Relationship="Self.FK__Tour__Code_trans__31EC6D26" FromRole="Tour" ToRole="Transport" />
+        </EntityType>
+        <EntityType Name="Transport">
+          <Key>
+            <PropertyRef Name="Code_transport" />
+          </Key>
+          <Property Name="Code_transport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title_transport" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tour" Relationship="Self.FK__Tour__Code_trans__31EC6D26" FromRole="Transport" ToRole="Tour" />
+        </EntityType>
+        <EntityType Name="Worker">
+          <Key>
+            <PropertyRef Name="Code_worker" />
+          </Key>
+          <Property Name="Code_worker" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Familia_worker" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name_worker" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Patronymic_worker" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Passport" Type="Int32" Nullable="false" />
+          <Property Name="Telephone" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__Code_wor__34C8D9D1" FromRole="Worker" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK__Additiona__Code___398D8EEE">
+          <End Role="Servic" Type="Self.Servic" Multiplicity="1" />
+          <End Role="Additional_feature" Type="Self.Additional_feature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servic">
+              <PropertyRef Name="Code_service" />
+            </Principal>
+            <Dependent Role="Additional_feature">
+              <PropertyRef Name="Code_service" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Additiona__Code___3A81B327">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Additional_feature" Type="Self.Additional_feature" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Code_hotel" />
+            </Principal>
+            <Dependent Role="Additional_feature">
+              <PropertyRef Name="Code_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Hotel__Code_city__2E1BDC42">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="Code_city" />
+            </Principal>
+            <Dependent Role="Hotel">
+              <PropertyRef Name="Code_city" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_cli__35BCFE0A">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="Code_client" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_client" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tour__Code_hotel__30F848ED">
+          <End Role="Hotel" Type="Self.Hotel" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hotel">
+              <PropertyRef Name="Code_hotel" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="Code_hotel" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_tou__36B12243">
+          <End Role="Tour" Type="Self.Tour" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tour">
+              <PropertyRef Name="Code_tour" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_tour" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__Code_wor__34C8D9D1">
+          <End Role="Worker" Type="Self.Worker" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Worker">
+              <PropertyRef Name="Code_worker" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="Code_worker" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tour__Code_trans__31EC6D26">
+          <End Role="Transport" Type="Self.Transport" Multiplicity="1" />
+          <End Role="Tour" Type="Self.Tour" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transport">
+              <PropertyRef Name="Code_transport" />
+            </Principal>
+            <Dependent Role="Tour">
+              <PropertyRef Name="Code_transport" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Travel_companyEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Additional_feature" EntityType="Self.Additional_feature" />
+          <EntitySet Name="City" EntityType="Self.City" />
+          <EntitySet Name="Client" EntityType="Self.Client" />
+          <EntitySet Name="Hotel" EntityType="Self.Hotel" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Servic" EntityType="Self.Servic" />
+          <EntitySet Name="Tour" EntityType="Self.Tour" />
+          <EntitySet Name="Transport" EntityType="Self.Transport" />
+          <EntitySet Name="Worker" EntityType="Self.Worker" />
+          <AssociationSet Name="FK__Additiona__Code___398D8EEE" Association="Self.FK__Additiona__Code___398D8EEE">
+            <End Role="Servic" EntitySet="Servic" />
+            <End Role="Additional_feature" EntitySet="Additional_feature" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Additiona__Code___3A81B327" Association="Self.FK__Additiona__Code___3A81B327">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Additional_feature" EntitySet="Additional_feature" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Hotel__Code_city__2E1BDC42" Association="Self.FK__Hotel__Code_city__2E1BDC42">
+            <End Role="City" EntitySet="City" />
+            <End Role="Hotel" EntitySet="Hotel" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_cli__35BCFE0A" Association="Self.FK__Orders__Code_cli__35BCFE0A">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tour__Code_hotel__30F848ED" Association="Self.FK__Tour__Code_hotel__30F848ED">
+            <End Role="Hotel" EntitySet="Hotel" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_tou__36B12243" Association="Self.FK__Orders__Code_tou__36B12243">
+            <End Role="Tour" EntitySet="Tour" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__Code_wor__34C8D9D1" Association="Self.FK__Orders__Code_wor__34C8D9D1">
+            <End Role="Worker" EntitySet="Worker" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tour__Code_trans__31EC6D26" Association="Self.FK__Tour__Code_trans__31EC6D26">
+            <End Role="Transport" EntitySet="Transport" />
+            <End Role="Tour" EntitySet="Tour" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Travel_company1ModelContainer" CdmEntityContainer="Travel_companyEntities">
+          <EntitySetMapping Name="Additional_feature">
+            <EntityTypeMapping TypeName="Travel_company1Model.Additional_feature">
+              <MappingFragment StoreEntitySet="Additional_feature">
+                <ScalarProperty Name="Code_feature" ColumnName="Code_feature" />
+                <ScalarProperty Name="Code_service" ColumnName="Code_service" />
+                <ScalarProperty Name="Code_hotel" ColumnName="Code_hotel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="City">
+            <EntityTypeMapping TypeName="Travel_company1Model.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="Code_city" ColumnName="Code_city" />
+                <ScalarProperty Name="Title_city" ColumnName="Title_city" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Client">
+            <EntityTypeMapping TypeName="Travel_company1Model.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="Code_client" ColumnName="Code_client" />
+                <ScalarProperty Name="Familia_client" ColumnName="Familia_client" />
+                <ScalarProperty Name="Name_client" ColumnName="Name_client" />
+                <ScalarProperty Name="Patronymic_client" ColumnName="Patronymic_client" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hotel">
+            <EntityTypeMapping TypeName="Travel_company1Model.Hotel">
+              <MappingFragment StoreEntitySet="Hotel">
+                <ScalarProperty Name="Code_hotel" ColumnName="Code_hotel" />
+                <ScalarProperty Name="Code_city" ColumnName="Code_city" />
+                <ScalarProperty Name="Title_hotel" ColumnName="Title_hotel" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Travel_company1Model.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Code_order" ColumnName="Code_order" />
+                <ScalarProperty Name="Code_worker" ColumnName="Code_worker" />
+                <ScalarProperty Name="Code_client" ColumnName="Code_client" />
+                <ScalarProperty Name="Code_tour" ColumnName="Code_tour" />
+                <ScalarProperty Name="Registration_date" ColumnName="Registration_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servic">
+            <EntityTypeMapping TypeName="Travel_company1Model.Servic">
+              <MappingFragment StoreEntitySet="Servic">
+                <ScalarProperty Name="Code_service" ColumnName="Code_service" />
+                <ScalarProperty Name="Title_service" ColumnName="Title_service" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tour">
+            <EntityTypeMapping TypeName="Travel_company1Model.Tour">
+              <MappingFragment StoreEntitySet="Tour">
+                <ScalarProperty Name="Code_tour" ColumnName="Code_tour" />
+                <ScalarProperty Name="Code_hotel" ColumnName="Code_hotel" />
+                <ScalarProperty Name="Code_transport" ColumnName="Code_transport" />
+                <ScalarProperty Name="From_Where" ColumnName="From_Where" />
+                <ScalarProperty Name="To_Where" ColumnName="To_Where" />
+                <ScalarProperty Name="Number_of_people" ColumnName="Number_of_people" />
+                <ScalarProperty Name="Departure_date" ColumnName="Departure_date" />
+                <ScalarProperty Name="Arrival_date" ColumnName="Arrival_date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transport">
+            <EntityTypeMapping TypeName="Travel_company1Model.Transport">
+              <MappingFragment StoreEntitySet="Transport">
+                <ScalarProperty Name="Code_transport" ColumnName="Code_transport" />
+                <ScalarProperty Name="Title_transport" ColumnName="Title_transport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Worker">
+            <EntityTypeMapping TypeName="Travel_company1Model.Worker">
+              <MappingFragment StoreEntitySet="Worker">
+                <ScalarProperty Name="Code_worker" ColumnName="Code_worker" />
+                <ScalarProperty Name="Familia_worker" ColumnName="Familia_worker" />
+                <ScalarProperty Name="Name_worker" ColumnName="Name_worker" />
+                <ScalarProperty Name="Patronymic_worker" ColumnName="Patronymic_worker" />
+                <ScalarProperty Name="Passport" ColumnName="Passport" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
